@@ -1,0 +1,30 @@
+name: Firmware research / compatibility proposal
+description: Propose AI-assisted firmware work, a new profile, or recovery research.
+body:
+  - type: input
+    id: goal
+    attributes: {label: Objective and exact model/component}
+    validations: {required: true}
+  - type: textarea
+    id: baseline
+    attributes: {label: Current behavior and reproducible measurements}
+    validations: {required: true}
+  - type: textarea
+    id: references
+    attributes: {label: Original references, hashes, and analysis artifacts}
+    validations: {required: true}
+  - type: textarea
+    id: evidence
+    attributes: {label: Established facts, hypotheses, and unknowns}
+    validations: {required: true}
+  - type: textarea
+    id: proposal
+    attributes: {label: Proposed change or research method}
+    validations: {required: true}
+  - type: textarea
+    id: recovery
+    attributes: {label: Compatibility, test plan, and recovery assumptions}
+    validations: {required: true}
+  - type: textarea
+    id: ai
+    attributes: {label: AI assistance, description: Optional; explain material assistance if useful for reviewing the work.}

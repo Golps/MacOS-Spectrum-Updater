@@ -1,0 +1,38 @@
+name: Bug report
+description: Report an app, import, connection, or update problem.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Please review copied diagnostics and remove private identifiers. Do not upload firmware binaries or raw backups.
+  - type: input
+    id: app
+    attributes: {label: App version and build, placeholder: '1.0 build 15'}
+    validations: {required: true}
+  - type: input
+    id: mac
+    attributes: {label: macOS version and Mac architecture}
+    validations: {required: true}
+  - type: input
+    id: monitor
+    attributes: {label: Exact model on monitor label and installed scaler version}
+    validations: {required: true}
+  - type: input
+    id: target
+    attributes: {label: Target component and firmware release}
+    validations: {required: true}
+  - type: textarea
+    id: connection
+    attributes: {label: USB/video connection and USB hub source setting}
+    validations: {required: true}
+  - type: textarea
+    id: reproduce
+    attributes: {label: Steps, expected result, and actual result}
+    validations: {required: true}
+  - type: textarea
+    id: stage
+    attributes: {label: Failure phase, description: 'Import, detection, profile check, backup, erase, programming, verification, or cleanup. Did writing start?'}
+    validations: {required: true}
+  - type: textarea
+    id: log
+    attributes: {label: Sanitized Copy Log output, render: text}

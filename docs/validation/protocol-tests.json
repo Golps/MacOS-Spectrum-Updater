@@ -1,0 +1,13 @@
+{
+  "assertions_passed": 21058882,
+  "physical_device_operations": false,
+  "files": {
+    "src/macos.c": "e4638cea63974ecac085c248dd957137c56961ce9ca6e582c392afe05076fb9c",
+    "src/macos.h": "a7781396528e2c27c4c6a9cefbd06d4ed0ffc43cc980311f874d3386874724c6",
+    "src/protocol.c": "ad7bae0558ecb7a18599d934328407ddb1ecfb5086ad4ac36df60360961ab0e1",
+    "src/image.c": "83ab2cd61b8efa9c00a199ea3c642894b5a7387b125771e0e51f3865f49108f4",
+    "src/files.c": "77ecaafd04b3ffba24153e6ab667b11e1018aed08ededf58ca5b238e661600e2",
+    "src/spectrum.h": "9ce3217f86fe41d22e547f3383c80d125c1115aa1a1dd8b8cb3184430a8e06fe",
+    "tests/test_protocol.c": "f2f2e0b1608fb31fb286ea72e03ecaab2600bcd6525d21086f4199a180ca68ca"
+  }
+}

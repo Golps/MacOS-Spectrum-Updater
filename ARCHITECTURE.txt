@@ -1,0 +1,117 @@
+SPECTRUM IPS UPDATER 1.0 — IMPLEMENTED ROUTES AND VALIDATION LIMITS
+
+STOCK IMPORT
+No firmware is embedded. Exact size/SHA256 profiles accept original .bin files,
+nine original ZIP packages and two VIA USB installer files. Installers are data,
+never executed. The native importer wraps their pinned raw LZMA2 payloads in
+valid XZ framing for Apple's Compression decoder, then checks the extracted
+firmware SHA256. No Windows, Homebrew, Python or external extractor is required
+by the app. Python is used only for optional developer fixtures/tests.
+
+MODEL / RELEASE MATRIX
+ES07D03: scaler V105, V106, V108, V108 Beta 3 (revision 1169-E771).
+ES07DC9: glossy scaler V101, shared V108 Beta 3.
+ES07E30: scaler V108, shared V108 Beta 3.
+ES07D02: QHD scaler V101 (revision 1148), Beta 1 (revision 1167).
+USB hub: original VL822Q7 06A4 for these four IPS profiles.
+PD: original VL103 0A.89.17.02 and 0A.89.19.02 for these four IPS profiles.
+
+The USB hardware/layout checks are mandatory for every model; the model label
+alone never authorizes a USB write. Target scaler authorization is independent
+of checksum validity. Automatic identification requires a compatible known
+installed scaler image. Shared images establish compatibility, not a unique
+physical model identity. Older factory versions outside the catalog are rejected;
+this is not a generic arbitrary-binary flasher. The two previous custom ES07D03
+hashes are recognized only as installed images to permit migration to stock.
+Modified images cannot be installed by this public tool.
+
+ES07DCA appears in historical vendor documentation, but no original dedicated
+firmware or confirmed cross-model update authorization was obtained. Its writes
+are excluded. ES07D01 is not a supported release profile. No OLED routes are
+implemented. Do not represent this version as supporting every Spectrum SKU.
+
+SCALER / INCLUDED HDMI-BRIDGE
+MST9U4 FW2: 0x400000–0x800000. Supported Macronix C22017 (8 MiB), C22018
+(16 MiB); the firmware window stays 4 MiB on both. Complete corrected vendor
+ISP sequence; strict packet lengths; bounded retries only for acknowledged
+setup mismatches; no retry of failed USB requests. Two identical full reads,
+validated current image, exclusive durable backup and receipt before erase.
+Unknown chip/configuration blocks writes. Preserve factory FW1; verify the
+complete erase span. Backup restoration is a separate complete-FW2 route.
+
+Included secondary components are flashed as bytes in the unchanged scaler
+container, then applied by the monitor on restart. No standalone HDMI image is
+accepted. Beta03 has 10 components and no trailing component 010f; V108, glossy
+V101 and QHD packages have 11. A smaller image preserves the remaining flash
+tail outside its erase span, matching vendor behavior; that is not corruption.
+
+USB HUB / PD
+Separate native VIA vendor-control SPI backend, not the MStar engine.
+The selected 2109:8886 billboard must have a directly paired 2109:2822 USB2
+hub ancestor in the macOS registry; arbitrary VIA hubs or placeholder serials
+cannot select a target. Opening uses a normal IOKit client, no driver seizure,
+kext, root helper or privilege escalation. If the OS refuses access, it stops.
+An installed scaler check is read-only and runs before opening shared USB SPI.
+
+Runtime silicon: VL822Q7 (F88C=F0, F88E=18, F88F=35, F651 package=0).
+SPI geometry: Macronix C22012–C22014, Winbond EF3012–EF3014 / EF4012–EF4014;
+256 KiB, 512 KiB or 1 MiB, standard 4 KiB erase and 256-byte pages. Other
+profiles/configuration/status-protected flash stop before erase. No whole-chip
+erase or implicit removal of SPI protection. Transfers are at most 32 bytes.
+Busy waits are bounded; saved power-management registers are restored.
+
+Two full shared-SPI reads must match. The full chip backup is created exclusively,
+read back from its open inode and durably synced with a receipt before any erase.
+Layout requires a valid factory hub header/CRC8, bounded factory payload,
+consistent update header if linked, and valid VL103 identity/CRC16 at 0x20000.
+Ambiguous legacy PD layout or unknown headers stop before erase.
+
+Hub update: relocate the vendor payload after the rounded factory payload;
+never overwrite factory payload, PD, recovery partition or other board bytes.
+Preserve whole-sector contents around headers, retain a factory header at 0x1800,
+write data first and its first boot chunk last, then update header at 0x1000,
+then root link/CRC last. Existing linked update headers use the same partition
+plan; power-loss fallback behavior is not certified by simulator tests.
+
+PD update: write only 0x20000–0x28000. Preserve hub firmware and PD backup region
+at 0x30000. Commit the first payload chunk after all component sectors. Each
+sector is rechecked against its backup immediately before erase, checked blank,
+programmed with bounded polling/readback, then the entire shared flash is compared
+with the plan. Writes outside the selected component's permitted ranges reject.
+PD offset is corroborated by the vendor USB tool's shipped debug log and fwupd's
+VL103 profile. The log is not redistributed because it contains workstation data.
+
+BACKUPS / OPERATIONS
+One shared app/CLI operation lock covers all routes. SIGINT/SIGTERM are guarded
+while maintenance runs; host crashes or loss of power cannot be prevented.
+Scaler and USB backups are separate under private app support. A USB backup is
+not offered as a scaler restore. USB raw whole-chip automatic restore is excluded;
+reinstall an original component file. Unknown/damaged installed layouts require
+a reviewed recovery procedure rather than a guessed chip rewrite.
+Visible logs omit paths and commands, show semantic success/error colors with text
+markers, and follow incoming lines only when the reader is already at the bottom.
+The main connection name is Spectrum monitor; controller names remain in logs.
+The app holds a macOS idle-sleep assertion during maintenance.
+UI imports remain private temporary snapshots and are removed on normal quit.
+Installed versions need a DC power cycle. The information screen reports scaler;
+hub/PD may appear separately. Optional component comparisons read the bytes
+again and require another power cycle. Successful write verification does not
+prove improvements to monitor behavior or that firmware has already booted.
+
+VALIDATION
+Offline simulators, AddressSanitizer/UndefinedBehaviorSanitizer, actual CLI
+orchestration with memory-only transports, seven stock scaler containers,
+nine package import/corruption checks, private backup/receipt checks, model
+compatibility and light/dark UI layout checks. Validation JSON/logs are supplied.
+No monitor operation was performed for this build. Prior physical ES07D03 scaler
+success does not certify the new hub/PD backend, other model units or macOS
+hub-driver coexistence. Those remain hardware validation work.
+
+PRIMARY REFERENCES
+https://dough.tech/products/spectrum-4k-144hz
+https://www.reddit.com/r/doughcommunity/comments/15etlh9/firmware/
+https://github.com/niklas389/dough-monitor-tools
+https://github.com/fwupd/fwupd/tree/main/plugins/vli
+https://github.com/dscharrer/innoextract/tree/master/src/stream
+Protocol facts informed independent implementation; no third-party routines
+or vendor binaries are redistributed in this package.

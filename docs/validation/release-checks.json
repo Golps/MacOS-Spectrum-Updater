@@ -1,0 +1,26 @@
+{
+  "updater_version": "1.0",
+  "supported_scaler_profiles": [
+    "ES07D03",
+    "ES07DC9",
+    "ES07E30",
+    "ES07D02"
+  ],
+  "firmware_bundled": false,
+  "custom_firmware_offered": false,
+  "hub_PD_write_backend_implemented": true,
+  "ES07D02_profile_implemented": true,
+  "hub_PD_hardware_validated": false,
+  "all_models_hardware_validated": false,
+  "unsupported_models": [
+    "ES07DCA",
+    "ES07D01",
+    "OLED"
+  ],
+  "signature_verified": true,
+  "files_scanned_for_private_paths_and_local_identity": 70,
+  "private_path_or_local_identity_matches": 0,
+  "monitor_accessed": false,
+  "ui_checks": 524,
+  "model_authorization_checks": 16
+}

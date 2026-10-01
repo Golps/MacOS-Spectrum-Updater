@@ -1,0 +1,103 @@
+{
+  "v105": {
+    "source_url": "https://cdn.shopify.com/s/files/1/0919/4202/7635/files/spectrum_one_es07d03_scaler_fw_105.zip",
+    "source_page": "https://dough.tech/products/spectrum-4k-144hz",
+    "sha256": "d95de1784ceb799e92ea5cffaf7acf1aae0a64011f4915bab61e47b464d07cca",
+    "bytes": 3561078,
+    "archive_unmodified": true,
+    "downloaded": "2026-09-30",
+    "member": "BD_EVE_4K_Release_20211126_V105_rev957_USB update.bin"
+  },
+  "v106": {
+    "source_url": "https://cdn.shopify.com/s/files/1/0919/4202/7635/files/spectrum_one_es07d03_scaler_fw_106.zip",
+    "source_page": "https://dough.tech/products/spectrum-4k-144hz",
+    "sha256": "f0040fd38cb1785afbf02ec742f8c424b4aaebdeff9a7bffb97f797df7176f91",
+    "bytes": 4085730,
+    "archive_unmodified": true,
+    "downloaded": "2026-09-30",
+    "member": "BD_EVE_4K_Release_20220216_V106_rev988_USB update.bin"
+  },
+  "v108": {
+    "source_url": "https://cdn.shopify.com/s/files/1/0919/4202/7635/files/spectrum_one_es07d03_scaler_fw_108.zip",
+    "source_page": "https://dough.tech/products/spectrum-4k-144hz",
+    "sha256": "06eafe9eb83a117a22002832efce255902ccdccefae07a20e5ed44b2d11a19f8",
+    "bytes": 4090085,
+    "archive_unmodified": true,
+    "downloaded": "2026-09-30",
+    "member": "ES07D03_V108_rev1148_USB update.bin"
+  },
+  "beta03": {
+    "source_url": "https://cdn.shopify.com/s/files/1/0919/4202/7635/files/spectrum_one_es07d03_scaler_fw_1169-Beta03.zip",
+    "source_page": "https://dough.tech/products/spectrum-4k-144hz",
+    "sha256": "b227596f273214f00de3176f40fdbbd97d0d6e5216cb1fd02f6bf63b14772db0",
+    "bytes": 3894825,
+    "archive_unmodified": true,
+    "downloaded": "2026-09-30",
+    "member": "spectrum_es07d03_scaler_fw_1169-E771_Beta03/ES07D03_Beta03_rev1169-E771_USB_update.bin"
+  },
+  "usb1702": {
+    "source_url": "https://cdn.shopify.com/s/files/1/0919/4202/7635/files/spectrum_one_usb_fw_06A4-0A.89.17.02.zip",
+    "source_page": "https://dough.tech/products/spectrum-4k-144hz",
+    "sha256": "c734affb14d5ca50756beba91d7c511d76f52e91dbc986d9a1d0cbb0dcbca7fa",
+    "bytes": 1166758,
+    "archive_unmodified": true,
+    "downloaded": "2026-09-30",
+    "extracted_payloads": {
+      "pd1702.bin": {
+        "installer_relative_path": "app/VL10x_Bin/pd.bin",
+        "sha256": "3e3c4c2224c676b1e4971280f5678f65b37ddb8609c3afdfa1df6f72e14b44b1"
+      },
+      "hub06a4.bin": {
+        "installer_relative_path": "app/Bin/hub.bin",
+        "sha256": "ec6699214c621671449ec941ab4ccd8c413cb79b6e369d99a654c12beb3a3356"
+      }
+    },
+    "member": "VL822_06A4_VL103R_89_17_02_Lehui_20210804.exe"
+  },
+  "usb1902": {
+    "source_url": "https://cdn.shopify.com/s/files/1/0919/4202/7635/files/spectrum_one_usb_fw_06A4-0A.89.19.02.zip",
+    "source_page": "https://dough.tech/products/spectrum-4k-144hz",
+    "sha256": "13605e7587f2f4269b9d67c0bc253e159566b20395be5979f8a8b8883d14b19b",
+    "bytes": 1203109,
+    "archive_unmodified": true,
+    "downloaded": "2026-09-30",
+    "extracted_payloads": {
+      "pd1902.bin": {
+        "installer_relative_path": "app/VL10x_Bin/pd.bin",
+        "sha256": "62879652a96b8098cb240c4a4290828304afc6709b3948066ccb0d1de49e0fe1"
+      },
+      "hub06a4.bin": {
+        "installer_relative_path": "app/Bin/hub.bin",
+        "sha256": "ec6699214c621671449ec941ab4ccd8c413cb79b6e369d99a654c12beb3a3356"
+      }
+    },
+    "member": "VL822_06A4_VL103R_89_19_02_Lehui_20220615.exe"
+  },
+  "dc9-v101": {
+    "source_url": "https://cdn.shopify.com/s/files/1/0919/4202/7635/files/spectrum_one_es07dc9_scaler_fw_101.zip",
+    "source_page": "https://www.reddit.com/r/doughcommunity/comments/15etlh9/firmware/",
+    "sha256": "8a09f42099596e3d5f90451db562c0a9fd7c79ba7fa77a7875eb9462db4a7cd9",
+    "bytes": 4053346,
+    "archive_unmodified": true,
+    "downloaded": "2026-10-01",
+    "member": "ES07DC9_V101_rev1148_USB update.bin"
+  },
+  "d02-v101": {
+    "source_url": "https://cdn.shopify.com/s/files/1/0728/3153/3351/files/spectrum_es07d02_scaler_fw_101.zip?v=1692801994",
+    "source_page": "https://www.reddit.com/r/doughcommunity/comments/15etlh9/firmware/",
+    "sha256": "fcb298863617ec1194a63cf54bbd74d77562ebbbabc343e0a6566442c48b7f63",
+    "bytes": 3995303,
+    "archive_unmodified": true,
+    "downloaded": "2026-10-01",
+    "member": "ES07D02_V101_rev1148_USB update.bin"
+  },
+  "d02-beta01": {
+    "source_url": "https://cdn.shopify.com/s/files/1/0728/3153/3351/files/spectrum_es07d02_scaler_fw_1167_Beta01.zip?v=1694620704",
+    "source_page": "https://www.reddit.com/r/doughcommunity/comments/15etlh9/firmware/",
+    "sha256": "eb6d1dda4791554fdfbcb93f106e88dd95737f33f215780f4f132520efc8a555",
+    "bytes": 3996150,
+    "archive_unmodified": true,
+    "downloaded": "2026-10-01",
+    "member": "ES07D02_Beta01_rev1167_USB_update.bin"
+  }
+}

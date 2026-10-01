@@ -1,0 +1,29 @@
+name: macOS build and offline UI checks
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build universal app
+        run: sh build.sh
+      - name: Test UI and logs without hardware
+        run: sh test-ui.sh
+      - name: Package app
+        run: python3 tools/package_github_release.py --version 1.0
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Spectrum-Updater-macOS
+          path: build/release/*
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Offscreen-UI-validation
+          path: |
+            build/ui-validation/
+            build/update-log-tests.json

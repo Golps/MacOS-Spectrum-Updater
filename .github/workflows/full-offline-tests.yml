@@ -1,0 +1,27 @@
+name: Full offline protocol suite
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Download exact vendor test fixtures
+        run: python3 tools/fetch_test_fixtures.py
+      - name: Build universal app
+        run: sh build.sh
+      - name: Run offline suite (no USB device access)
+        run: sh test.sh
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: Offline-validation-results
+          path: |
+            build/*tests.json
+            build/*test-log.txt
+            build/ui-validation/

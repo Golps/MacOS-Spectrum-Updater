@@ -1,0 +1,1 @@
+16 model authorization checks passed; incompatible models, OLED and PD images rejected.

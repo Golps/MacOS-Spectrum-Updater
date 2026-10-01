@@ -1,0 +1,75 @@
+SPECTRUM IPS UPDATER 1.0 — macOS 13+, Apple Silicon / Intel
+
+1. Connect the monitor's USB data cable directly to your Mac. In the monitor's
+   Select USB hub source setting, select that upstream port. For hub/PD updates,
+   prefer a USB-B data connection, with video on HDMI or DisplayPort. Remove
+   downstream USB storage and other devices before updating the hub.
+2. Open Spectrum Updater.app. Select the model printed on your monitor's label.
+   The app detects the USB connection automatically. With multiple monitors,
+   select the intended connection. Detection alone does not establish its model.
+3. Choose the original vendor ZIP, firmware .bin, or USB installer .exe. ZIPs
+   are unpacked automatically. A USB package loads both hub and PD files.
+   The Windows installer is never executed. Firmware is not bundled with the app.
+4. Check the selected component and version, then click Install. The tool checks
+   the installed scaler/profile and, for USB updates, the paired hub controller,
+   chip and shared-flash layout. It saves a durable verified backup before erase.
+   Keep the Mac awake, with power and USB connected, until it finishes.
+5. Follow the 10-second DC power-cycle instruction. If a scaler update shows
+   Processing update, wait for it to finish and power-cycle once more.
+6. Select the next loaded component from the firmware menu and repeat. Update
+   one component at a time; finish its power cycle before starting another.
+
+Use the latest appropriate scaler package first, then hub, then PD. It is not
+necessary to rewrite components that already match: the app checks for this.
+Scaler packages carry their included secondary/HDMI bridge components. There
+is no separate raw HDMI file workflow. Beta03 lacks the trailing Processing
+update component; omitting that stage for Beta03 is expected.
+
+Supported profiles: ES07D03 (4K 144 Hz matte), ES07DC9 (4K 144 Hz glossy),
+ES07E30 (4K 144 Hz Gorilla Glass), and ES07D02 (QHD 280 Hz matte).
+All four are listed in the model menu. Exact release and chip
+coverage is in Source/spectrum-macos-updater/ARCHITECTURE.txt. Unrecognized
+installed firmware or hardware stops before erase. ES07DCA has no verified
+release profile in this build; OLED models use different routes and are excluded.
+
+To revert, choose the compatible original vendor firmware file for that component.
+Matching scaler backups can be restored when the connection has a unique serial.
+USB shared-SPI backups are retained privately for recovery/diagnosis; this app does
+not automatically restore an entire USB chip or identify a unit by its USB port.
+Many monitors use a placeholder serial, so device-specific backup restore is then
+unavailable. Existing backups are preserved outside this release folder.
+
+The scaler route incorporates the earlier ES07D03 chip/sequence fixes tested on
+one monitor. Hub/PD routes passed offline simulation; physical macOS USB hub
+access and updates on other units have not yet been tested. This is not a claim
+of hardware certification or a fix for blackouts/wake behavior: firmware is stock.
+
+The app is locally signed, not Apple-notarized. If macOS cannot verify its
+publisher, try opening it, then use System Settings > Privacy & Security >
+Open Anyway. Do not disable system security globally.
+
+4K firmware: https://dough.tech/products/spectrum-4k-144hz
+QHD firmware: https://www.reddit.com/r/doughcommunity/comments/15etlh9/firmware/
+Follow the published update guide at https://github.com/Golps/MacOS-Spectrum-Updater/blob/main/docs/UPDATE-GUIDE.md
+No monitor operation is performed merely by opening the app or reading this guide.
+
+UI revision — build 15
+The entire workflow fits on one page; only the diagnostics log scrolls.
+Connection polling updates the screen only when the connection changes.
+The flat step indicator uses a progress line and completion checks, without button backgrounds.
+Diagnostics remain visible, with a Copy Log control and no show/hide toggle.
+
+Model references:
+Dough Spectrum One specification (D03/DC9/E30, IPS, 4K 144 Hz):
+https://files.bbystatic.com/sZx8dgseD2pOvZWD8uQA0g==/Specifcations
+Dough firmware announcement (D02, QHD 280 Hz):
+https://www.reddit.com/r/doughcommunity/comments/15etlh9/firmware/
+Spectrum Black 27 and 32 are separate OLED families, excluded from this tool:
+https://dough.tech/products/spectrum-black-27-480hz
+https://dough.tech/products/spectrum-black-32
+The historical ES07D01 and ES07DCA names do not establish firmware compatibility.
+This build has no validated update profile for either and does not list them.
+
+Step progression starts at Select monitor. After importing matching firmware,
+Connect stays highlighted until you choose Continue to Install. Only the current
+step has an accent-colored progress line; earlier steps have neutral checks.

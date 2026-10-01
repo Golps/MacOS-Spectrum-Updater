@@ -1,0 +1,82 @@
+Scaler setup: 0426 requested=23 observed=23; 042A=00 0428=00.
+Flash-access enable: requested=F0 observed=F0.
+Scaler setup: 0426 requested=23 observed=23; 042A=00 0428=00.
+Scaler setup: 0426 requested=23 observed=23; 042A=00 0428=00.
+Scaler setup: 0426 requested=23 observed=23; 042A=00 0428=00.
+Scaler setup: 0426 requested=23 observed=23; 042A=00 0428=00.
+Scaler setup: 0426 requested=23 observed=23; 042A=00 0428=00.
+Scaler setup: 0426 requested=23 observed=23; 042A=00 0428=00.
+Scaler setup: 0426 requested=23 observed=23; 042A=00 0428=00.
+Scaler setup: 0426 requested=23 observed=23; 042A=00 0428=00.
+Scaler setup: 0426 requested=23 observed=23; 042A=00 0428=00.
+Scaler setup: 0426 requested=23 observed=23; 042A=00 0428=00.
+Scaler setup: 0426 requested=23 observed=23; 042A=00 0428=00.
+Scaler setup: 0426 requested=23 observed=23; 042A=00 0428=00.
+Scaler setup: 0426 requested=23 observed=23; 042A=00 0428=00.
+Scaler setup: 0426 requested=23 observed=23; 042A=00 0428=00.
+Scaler setup: 0426 requested=23 observed=23; 042A=00 0428=00.
+Scaler setup: 0426 requested=23 observed=23; 042A=00 0428=00.
+Scaler setup: 0426 requested=23 observed=23; 042A=00 0428=00.
+Scaler setup: 0426 requested=23 observed=23; 042A=00 0428=00.
+Flash-access enable: requested=F0 observed=F0.
+Scaler setup: 0426 requested=23 observed=23; 042A=00 0428=00.
+Flash-access enable: requested=F0 observed=F0.
+Scaler setup: 0426 requested=23 observed=23; 042A=00 0428=00.
+Flash-access enable: requested=F0 observed=F0.
+Scaler setup: 0426 requested=23 observed=23; 042A=00 0428=00.
+Flash-access enable: requested=F0 observed=F0.
+Scaler setup: 0426 requested=23 observed=23; 042A=00 0428=00.
+Flash-access enable: requested=F0 observed=F0.
+Scaler setup: 0426 requested=23 observed=23; 042A=00 0428=00.
+Flash-access enable: requested=F0 observed=F0.
+Scaler setup: 0426 requested=23 observed=23; 042A=00 0428=00.
+Flash-access enable: requested=F0 observed=F0.
+Scaler setup: 0426 requested=23 observed=23; 042A=00 0428=00.
+Flash-access enable: requested=F0 observed=F0.
+Scaler setup: 0426 requested=23 observed=23; 042A=00 0428=00.
+Flash-access enable: requested=F0 observed=F0.
+Scaler setup: 0426 requested=23 observed=23; 042A=00 0428=00.
+Flash-access enable: requested=F0 observed=F0.
+Scaler setup: 0426 requested=23 observed=23; 042A=00 0428=00.
+Flash-access enable: requested=F0 observed=F0.
+Scaler setup: 0426 requested=23 observed=23; 042A=00 0428=00.
+Flash-access enable: requested=F0 observed=F0.
+Scaler setup: 0426 requested=23 observed=23; 042A=00 0428=00.
+Flash-access enable: requested=F0 observed=F0.
+Scaler setup: 0426 requested=23 observed=23; 042A=00 0428=00.
+Flash-access enable: requested=F0 observed=F0.
+Scaler setup: 0426 requested=23 observed=23; 042A=00 0428=00.
+Flash-access enable: requested=F0 observed=F0.
+Scaler setup: 0426 requested=23 observed=23; 042A=00 0428=00.
+Flash-access enable: requested=F0 observed=F0.
+Scaler setup: 0426 requested=23 observed=22; 042A=00 0428=00.
+Flash-access enable: requested=F0 observed=F0.
+Scaler setup: 0426 requested=23 observed=22; 042A=00 0428=00.
+Flash-access enable: requested=F0 observed=70.
+Scaler setup: 0426 requested=23 observed=22; 042A=00 0428=00.
+Flash-access enable: requested=F0 observed=70.
+Scaler setup: 0426 requested=23 observed=22; 042A=00 0428=00.
+Flash-access enable: requested=F0 observed=70.
+Scaler setup: 0426 requested=23 observed=22; 042A=00 0428=00.
+Flash-access enable: requested=F0 observed=70.
+Scaler setup: 0426 requested=23 observed=22; 042A=00 0428=00.
+Flash-access enable: requested=F0 observed=70.
+Scaler setup: 0426 requested=23 observed=23; 042A=00 0428=00.
+Flash-access enable: requested=F0 observed=70.
+Scaler setup: 0426 requested=23 observed=23; 042A=00 0428=00.
+Flash-access enable: requested=F0 observed=70.
+Scaler setup: 0426 requested=23 observed=23; 042A=00 0428=00.
+Flash-access enable: requested=F0 observed=F0.
+Scaler setup: 0426 requested=23 observed=23; 042A=00 0428=00.
+Flash-access enable: requested=F0 observed=F0.
+Scaler setup: 0426 requested=23 observed=23; 042A=00 0428=00.
+Flash-access enable: requested=F0 observed=F0.
+Scaler setup: 0426 requested=23 observed=23; 042A=00 0428=00.
+Flash-access enable: requested=F0 observed=F0.
+Scaler setup: 0426 requested=23 observed=23; 042A=00 0428=00.
+Flash-access enable: requested=F0 observed=F0.
+Scaler setup: 0426 requested=23 observed=23; 042A=00 0428=00.
+Flash-access enable: requested=F0 observed=F0.
+Scaler setup: 0426 requested=23 observed=23; 042A=00 0428=00.
+Flash-access enable: requested=F0 observed=F0.
+Protocol simulator: 21058882 assertions passed; actual monitor not tested.

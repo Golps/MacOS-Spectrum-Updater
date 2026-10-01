@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Read the update guide
+    url: https://github.com/Golps/MacOS-Spectrum-Updater/blob/main/docs/UPDATE-GUIDE.md
+    about: Start here for installation, connection, and power-cycle steps.
+  - name: Check compatibility
+    url: https://github.com/Golps/MacOS-Spectrum-Updater/blob/main/docs/COMPATIBILITY.md
+    about: Review model, firmware, chip, and validation limits before proposing an update.

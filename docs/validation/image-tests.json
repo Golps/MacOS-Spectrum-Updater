@@ -1,0 +1,37 @@
+[
+  {
+    "name": "v105",
+    "accepted": true,
+    "output": "Image: SOURCE_ROOT/build/fixtures/v105.bin\nBytes: 2056020\nSHA256: 536d94f761d84fa7d8b616dbf5442b81a2d470f2cb7112cba213bc4fbd10add9\nStock release: V105\nValidated: outer/application CRC32, staged main-build CRC16 and 11 component CRC16 values\nFlash interval: 0x400000\u20130x5F5F54; erase span 2097152 bytes\n"
+  },
+  {
+    "name": "v106",
+    "accepted": true,
+    "output": "Image: SOURCE_ROOT/build/fixtures/v106.bin\nBytes: 2056388\nSHA256: 199bb51c3d31023ffb37542acc250af4bd66cc7059f9a221697ce9c6c5b27ab1\nStock release: V106\nValidated: outer/application CRC32, staged main-build CRC16 and 11 component CRC16 values\nFlash interval: 0x400000\u20130x5F60C4; erase span 2097152 bytes\n"
+  },
+  {
+    "name": "v108",
+    "accepted": true,
+    "output": "Image: SOURCE_ROOT/build/fixtures/v108.bin\nBytes: 2069060\nSHA256: 136d982c65f8c7615c6f5dd4adc6f9bfa8226f1f877e6e6dcff3d7bb28591757\nStock release: V108\nValidated: outer/application CRC32, staged main-build CRC16 and 11 component CRC16 values\nFlash interval: 0x400000\u20130x5F9244; erase span 2097152 bytes\n"
+  },
+  {
+    "name": "beta03",
+    "accepted": true,
+    "output": "Image: SOURCE_ROOT/build/fixtures/beta03.bin\nBytes: 1344628\nSHA256: d9be1e1c7aad81813faa7490a200fe6cfb83d0f371169f4ff94b829ea64c5ce3\nStock release: Beta03\nValidated: outer/application CRC32, staged main-build CRC16 and 10 component CRC16 values\nFlash interval: 0x400000\u20130x548474; erase span 1376256 bytes\n"
+  },
+  {
+    "name": "dc9-v101",
+    "accepted": true,
+    "output": "Image: SOURCE_ROOT/build/fixtures/dc9-v101.bin\nBytes: 2069060\nSHA256: 0b5d8350af9997e35b8591b4d5585ae859988129b72b4e7b8d55a3ab68ea56a9\nStock release: ES07DC9 V101\nValidated: outer/application CRC32, staged main-build CRC16 and 11 component CRC16 values\nFlash interval: 0x400000\u20130x5F9244; erase span 2097152 bytes\n"
+  },
+  {
+    "name": "d02-v101",
+    "accepted": true,
+    "output": "Image: SOURCE_ROOT/build/fixtures/d02-v101.bin\nBytes: 2014868\nSHA256: 5f0a7bf92119fcc5965f09985d41645a062e86fabd993de86635a515b6e92162\nStock release: ES07D02 V101\nValidated: outer/application CRC32, staged main-build CRC16 and 11 component CRC16 values\nFlash interval: 0x400000\u20130x5EBE94; erase span 2031616 bytes\n"
+  },
+  {
+    "name": "d02-beta01",
+    "accepted": true,
+    "output": "Image: SOURCE_ROOT/build/fixtures/d02-beta01.bin\nBytes: 2014868\nSHA256: e319da9490df8cec4ff94677385e57a560899a9ef335b6dc7e9b052bf3bcc9f0\nStock release: ES07D02 Beta01\nValidated: outer/application CRC32, staged main-build CRC16 and 11 component CRC16 values\nFlash interval: 0x400000\u20130x5EBE94; erase span 2031616 bytes\n"
+  }
+]

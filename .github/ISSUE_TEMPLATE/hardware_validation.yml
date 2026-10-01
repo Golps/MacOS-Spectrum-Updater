@@ -1,0 +1,28 @@
+name: Hardware validation report
+description: Share a real update or a failed hardware-access attempt.
+body:
+  - type: markdown
+    attributes:
+      value: Positive and negative results are useful. Keep private backups, serials, and firmware binaries out of the issue.
+  - type: input
+    id: model
+    attributes: {label: Physical model and hardware revision if known}
+    validations: {required: true}
+  - type: input
+    id: versions
+    attributes: {label: Original firmware and target component/release}
+    validations: {required: true}
+  - type: input
+    id: system
+    attributes: {label: App build, macOS version, and Mac architecture}
+    validations: {required: true}
+  - type: textarea
+    id: route
+    attributes: {label: Connection route and reported controller/chip IDs}
+  - type: textarea
+    id: result
+    attributes: {label: Backup, write, verification, restart, and normal-function results}
+    validations: {required: true}
+  - type: textarea
+    id: evidence
+    attributes: {label: Sanitized diagnostics and reproducible observations}

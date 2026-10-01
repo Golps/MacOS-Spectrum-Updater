@@ -1,0 +1,25 @@
+{
+  "checks" : [
+    "private automatic destination, no existing file",
+    "completed durable-engine backup is indexed",
+    "serial matches across reconnection and port change",
+    "different monitor is not offered or restored",
+    "missing serial does not silently match a port",
+    "unfinished operation cannot create ready backup",
+    "truncated backup rejected",
+    "same-length corruption rejected",
+    "symlink backup rejected",
+    "duplicate engine hash lines rejected",
+    "source image hash must match actual backup bytes",
+    "interrupted install recovers through pending identity and durable receipt",
+    "interrupted restore retains a backup with no requested release ID",
+    "orphan raw file without receipt cannot become a restore option",
+    "mismatched or opaque rescue receipt cannot become a restore option",
+    "pending backup is recovered only for the recorded serial",
+    "logs and metadata are private",
+    "shared SPI backup uses a separate private folder",
+    "shared SPI receipt size or hash mismatch is rejected"
+  ],
+  "device_operations" : false,
+  "tests_passed" : 19
+}

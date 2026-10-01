@@ -1,0 +1,26 @@
+PROTOCOL / FORMAT REFERENCES
+
+MStar scaler ISP and FW2 image analysis:
+https://github.com/niklas389/dough-monitor-tools
+Original vendor firmware packages linked by Dough:
+https://dough.tech/products/spectrum-4k-144hz
+https://www.reddit.com/r/doughcommunity/comments/15etlh9/firmware/
+
+VIA vendor controls, VL822 header relocation and VL103 shared-SPI layout:
+https://github.com/fwupd/fwupd/tree/main/plugins/vli
+Relevant upstream files: fu-vli-device.c, fu-vli-usbhub-device.c,
+fu-vli-usbhub-pd-device.c, fu-vli-usbhub-firmware.c, fu-vli-pd-firmware.c,
+fu-vli.rs and vli.quirk. Upstream authors include VIA Corporation and Richard
+Hughes; upstream code uses LGPL-2.1-or-later. Our files vli.c/vli-cli.c are
+independent original implementations of the protocol facts, not source copies.
+
+Inno installer stream structure:
+https://github.com/dscharrer/innoextract/tree/master/src/stream
+Upstream author Daniel Scharrer; upstream source uses the zlib license.
+VendorImport.swift is an independent exact-package importer. It does not embed
+or invoke innoextract. Its XZ wrapper follows the public XZ stream format:
+https://tukaani.org/xz/xz-file-format.txt
+macOS Compression provides the decoder. Payload SHA256 is checked after decode.
+
+This tool is independent of Eve/Dough and the upstream projects. Referencing a
+protocol does not imply endorsement, vendor approval or hardware certification.

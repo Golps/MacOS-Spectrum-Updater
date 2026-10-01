@@ -1,0 +1,61 @@
+name: Publish macOS release
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/release.yml]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Release tag to create at the selected source commit
+        required: true
+        default: v1.0.0
+        type: string
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: macos-14
+    env:
+      RELEASE_TAG: ${{ inputs.tag || 'v1.0.0' }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate tag input
+        run: |
+          python3 - <<'PY'
+          import os, re
+          if not re.fullmatch(r'v\d+\.\d+(?:\.\d+)?', os.environ['RELEASE_TAG']):
+              raise SystemExit('Use a release tag such as v1.0.0')
+          PY
+      - name: Build and check UI
+        run: |
+          sh build.sh
+          sh test-ui.sh
+      - name: Package app and prepare release notes
+        run: |
+          task_app_version=$(python3 -c 'import plistlib; print(plistlib.load(open("Info.plist", "rb"))["CFBundleShortVersionString"])')
+          python3 tools/package_github_release.py --version "$task_app_version"
+          python3 - <<'PY'
+          from pathlib import Path
+          import plistlib, re, posixpath, os
+          version = plistlib.loads(Path('Info.plist').read_bytes())['CFBundleShortVersionString']
+          tag = os.environ['RELEASE_TAG'].removeprefix('v')
+          if tag not in {version, version + '.0'}:
+              raise SystemExit('Release tag must match the app version')
+          source = Path('docs/releases') / (version + '.md')
+          if not source.exists():
+              raise SystemExit('Create release notes for this app version first')
+          def absolute(match):
+              label, target = match.group(1), match.group(2)
+              if target.startswith(('https://', 'http://', '#', 'mailto:')):
+                  return match.group(0)
+              path = posixpath.normpath(str(source.parent / target))
+              return '[' + label + '](https://github.com/' + os.environ['GITHUB_REPOSITORY'] + '/blob/main/' + path + ')'
+          Path('build/release-notes.md').write_text(re.sub(r'\[([^\]]+)\]\(([^)]+)\)', absolute, source.read_text()))
+          PY
+      - name: Publish release assets at the checked source commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          task_app_version=$(python3 -c 'import plistlib; print(plistlib.load(open("Info.plist", "rb"))["CFBundleShortVersionString"])')
+          task_app_build=$(python3 -c 'import plistlib; print(plistlib.load(open("Info.plist", "rb"))["CFBundleVersion"])')
+          gh release create "$RELEASE_TAG" build/release/* --target "$GITHUB_SHA" --title "Spectrum Updater $task_app_version — build $task_app_build" --notes-file build/release-notes.md
