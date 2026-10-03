@@ -88,9 +88,9 @@ Upload the ZIP and checksum file as release assets. The repository source belong
 
 ## CI
 
-The default GitHub Actions job builds the universal app, runs fixture-free catalog/UI checks, and uploads the app package and test results as CI artifacts. It never operates a monitor. Fixture-based full validation is available as a separately dispatched job because it needs explicit vendor downloads.
+The default GitHub Actions build job builds the universal app, runs fixture-free catalog/UI checks, and uploads the app package and test results as CI artifacts. A second required workflow downloads the hash-pinned vendor test fixtures and runs the full offline protocol/sanitizer suite on every push and pull request. Neither workflow operates a monitor.
 
-CI artifacts are not automatically published as public releases. Maintainers can run **Publish macOS release** from the Actions page, select the source branch/commit and a matching tag (for example `v1.0.0`), and publish the freshly built app ZIP, checksum, and package report. That workflow uses the repository-scoped Actions token with contents-write permission; it does not require an Apple signing identity or a personal token in the source.
+CI artifacts are not automatically published as public releases. Maintainers can run **Publish macOS release** from the Actions page, select the source branch/commit and a matching tag (for example `v1.0.0`). The workflow first downloads the pinned fixtures, builds, and runs the full offline suite with read-only repository permission. Only the final publish job receives `contents: write`, after validation succeeds.
 
 A release tag must match `Info.plist`, and its notes must exist at `docs/releases/<app-version>.md`. An existing release is not silently overwritten. Hardware validation remains a separate activity, regardless of CI status.
 
