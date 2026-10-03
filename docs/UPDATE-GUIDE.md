@@ -56,12 +56,12 @@ USB discovery reads the macOS registry. It does not enter ISP mode or read/modif
 
 ![Ready to install screen](assets/03-ready-dark.png)
 
-Click **Install** for the selected component and read the confirmation. The dialog names the chosen firmware and explains power/connection requirements.
+Click **Install** for the selected component and read the confirmation. For scaler firmware, the app first asks you to type the model from the monitor’s physical label. This is intentionally independent of the model selected in the app: some stock scaler images are shared by multiple physical models, so installed firmware alone cannot always identify the label uniquely. The following dialog names the chosen firmware and explains power/connection requirements.
 
 After confirmation, the engine:
 
 1. Acquires the shared operation lock and holds a macOS idle-sleep assertion.
-2. Checks the selected model against recognized installed scaler firmware.
+2. Checks the selected model against recognized installed scaler firmware. When the installed image is shared across model profiles and the target narrows compatibility, the engine also requires the matching physical-label confirmation before erase.
 3. Identifies supported flash/controller geometry and, for hub/PD, the directly paired USB controller and shared-flash layout.
 4. Reads the required flash contents twice and checks that they match.
 5. Creates an exclusive, durable backup and receipt and verifies the backup.
