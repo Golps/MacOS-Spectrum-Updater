@@ -54,10 +54,14 @@ int main(int argc,char **argv) {
     CHECK(invoke("flash",argv[2],si.sha256,backup,true,false)==2);CHECK(opens==0&&writes==0);
     CHECK(invoke("flash",argv[2],ci.sha256,backup,false,false)==0);CHECK(opens==1&&writes==1);clear_backup(backup);
     {
-        char *args[]={"test-updater","flash",argv[5],"--device","1","--auto-model","ES07DC9","--sha256",(char *)"0b5d8350af9997e35b8591b4d5585ae859988129b72b4e7b8d55a3ab68ea56a9","--backup",backup};
+        /* Shared Beta03 cannot uniquely identify D03/DC9/E30. A DC9-only target
+           therefore needs an independent physical-label confirmation. */
+        memset(mock_contents,0xa5,SP_LIMIT-SP_BASE);memcpy(mock_contents,target,cn);
+        char *args[]={"test-updater","flash",argv[6],"--device","1","--auto-model","ES07DC9","--sha256",(char *)"0b5d8350af9997e35b8591b4d5585ae859988129b72b4e7b8d55a3ab68ea56a9","--backup",backup};
         selected_model="ES07DC9";opens=writes=0;expected_backup=backup;cases++;
         CHECK(updater_main(11,args)==1);CHECK(opens==1&&writes==0&&access(backup,F_OK)!=0);
         selected_model="ES07D03";
+        memset(mock_contents,0xa5,SP_LIMIT-SP_BASE);memcpy(mock_contents,stock,sn);
     }
     CHECK(invoke("flash",argv[2],ci.sha256,backup,true,true)==2);CHECK(opens==0&&writes==0);
     CHECK(invoke("flash",argv[1],si.sha256,backup,false,false)==0);CHECK(opens==1&&writes==0);clear_backup(backup);
