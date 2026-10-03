@@ -25,8 +25,8 @@ int sp_restore(sp_session *s,const uint8_t *im,size_t n,sp_progress p,void *c) {
 static void file_write(const char *path,const uint8_t *d,size_t n) { FILE *f=fopen(path,"wb");CHECK(f!=NULL);CHECK(fwrite(d,1,n,f)==n);CHECK(!fclose(f)); }
 static void clear_backup(const char *path) { char receipt[4096];snprintf(receipt,sizeof receipt,"%s.receipt.json",path);CHECK(!unlink(path));CHECK(!unlink(receipt)); }
 static int invoke(const char *verb,const char *input,const char *hash,const char *backup,bool experiment,bool both) {
-    char *args[]={"test-updater",(char *)verb,(char *)input,"--device","1","--auto-model",(char *)selected_model,"--sha256",(char *)hash,"--backup",(char *)backup,"--experimental","--confirm","ES07D03"};
-    int count=experiment?12:11;if(both)count=14;
+    char *args[]={"test-updater",(char *)verb,(char *)input,"--device","1","--auto-model",(char *)selected_model,"--label-confirm",(char *)selected_model,"--sha256",(char *)hash,"--backup",(char *)backup,"--experimental","--confirm","ES07D03"};
+    int count=experiment?14:13;if(both)count=16;
     opens=writes=0;expected_backup=backup;cases++;
     return updater_main(count,args);
 }
@@ -53,6 +53,12 @@ int main(int argc,char **argv) {
     CHECK(invoke("flash",unknown_path,ui.sha256,backup,true,false)==2);CHECK(opens==0&&writes==0);
     CHECK(invoke("flash",argv[2],si.sha256,backup,true,false)==2);CHECK(opens==0&&writes==0);
     CHECK(invoke("flash",argv[2],ci.sha256,backup,false,false)==0);CHECK(opens==1&&writes==1);clear_backup(backup);
+    {
+        char *args[]={"test-updater","flash",argv[5],"--device","1","--auto-model","ES07DC9","--sha256",(char *)"0b5d8350af9997e35b8591b4d5585ae859988129b72b4e7b8d55a3ab68ea56a9","--backup",backup};
+        selected_model="ES07DC9";opens=writes=0;expected_backup=backup;cases++;
+        CHECK(updater_main(11,args)==1);CHECK(opens==1&&writes==0&&access(backup,F_OK)!=0);
+        selected_model="ES07D03";
+    }
     CHECK(invoke("flash",argv[2],ci.sha256,backup,true,true)==2);CHECK(opens==0&&writes==0);
     CHECK(invoke("flash",argv[1],si.sha256,backup,false,false)==0);CHECK(opens==1&&writes==0);clear_backup(backup);
     snprintf(raw_path,sizeof raw_path,"%s/raw.bin",directory);file_write(raw_path,mock_contents,SP_LIMIT-SP_BASE);
