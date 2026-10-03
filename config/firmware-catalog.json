@@ -1,0 +1,137 @@
+{
+  "schema": 1,
+  "firmware": [
+    {
+      "id": "beta03",
+      "component": "scaler",
+      "sha256": "d9be1e1c7aad81813faa7490a200fe6cfb83d0f371169f4ff94b829ea64c5ce3",
+      "byteCount": 1344628,
+      "models": [
+        "ES07D03",
+        "ES07DC9",
+        "ES07E30"
+      ],
+      "installable": true
+    },
+    {
+      "id": "v108",
+      "component": "scaler",
+      "sha256": "136d982c65f8c7615c6f5dd4adc6f9bfa8226f1f877e6e6dcff3d7bb28591757",
+      "byteCount": 2069060,
+      "models": [
+        "ES07D03",
+        "ES07E30"
+      ],
+      "installable": true
+    },
+    {
+      "id": "v106",
+      "component": "scaler",
+      "sha256": "199bb51c3d31023ffb37542acc250af4bd66cc7059f9a221697ce9c6c5b27ab1",
+      "byteCount": 2056388,
+      "models": [
+        "ES07D03"
+      ],
+      "installable": true
+    },
+    {
+      "id": "v105",
+      "component": "scaler",
+      "sha256": "536d94f761d84fa7d8b616dbf5442b81a2d470f2cb7112cba213bc4fbd10add9",
+      "byteCount": 2056020,
+      "models": [
+        "ES07D03"
+      ],
+      "installable": true
+    },
+    {
+      "id": "dc9-v101",
+      "component": "scaler",
+      "sha256": "0b5d8350af9997e35b8591b4d5585ae859988129b72b4e7b8d55a3ab68ea56a9",
+      "byteCount": 2069060,
+      "models": [
+        "ES07DC9"
+      ],
+      "installable": true
+    },
+    {
+      "id": "d02-v101",
+      "component": "scaler",
+      "sha256": "5f0a7bf92119fcc5965f09985d41645a062e86fabd993de86635a515b6e92162",
+      "byteCount": 2014868,
+      "models": [
+        "ES07D02"
+      ],
+      "installable": true
+    },
+    {
+      "id": "d02-beta01",
+      "component": "scaler",
+      "sha256": "e319da9490df8cec4ff94677385e57a560899a9ef335b6dc7e9b052bf3bcc9f0",
+      "byteCount": 2014868,
+      "models": [
+        "ES07D02"
+      ],
+      "installable": true
+    },
+    {
+      "id": "hub-06a4",
+      "component": "hub",
+      "sha256": "ec6699214c621671449ec941ab4ccd8c413cb79b6e369d99a654c12beb3a3356",
+      "byteCount": 42556,
+      "models": [
+        "ES07D03",
+        "ES07DC9",
+        "ES07E30",
+        "ES07D02"
+      ],
+      "installable": true
+    },
+    {
+      "id": "pd-1902",
+      "component": "pd",
+      "sha256": "62879652a96b8098cb240c4a4290828304afc6709b3948066ccb0d1de49e0fe1",
+      "byteCount": 32768,
+      "models": [
+        "ES07D03",
+        "ES07DC9",
+        "ES07E30",
+        "ES07D02"
+      ],
+      "installable": true
+    },
+    {
+      "id": "pd-1702",
+      "component": "pd",
+      "sha256": "3e3c4c2224c676b1e4971280f5678f65b37ddb8609c3afdfa1df6f72e14b44b1",
+      "byteCount": 32768,
+      "models": [
+        "ES07D03",
+        "ES07DC9",
+        "ES07E30",
+        "ES07D02"
+      ],
+      "installable": true
+    },
+    {
+      "id": null,
+      "component": "scaler",
+      "sha256": "6f0548944344c9ef8e16a6d40eabef4872f9bfc4dab7a918d83899058e2b14bb",
+      "byteCount": null,
+      "models": [
+        "ES07D03"
+      ],
+      "installable": false
+    },
+    {
+      "id": null,
+      "component": "scaler",
+      "sha256": "461993270a3a4458e38f5d10d157ce5b091bd5db2beb6baec78b708aaa61dd7a",
+      "byteCount": null,
+      "models": [
+        "ES07D03"
+      ],
+      "installable": false
+    }
+  ]
+}
