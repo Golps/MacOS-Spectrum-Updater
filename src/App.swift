@@ -10,8 +10,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     private var confirmationOpen = false
     private var stage: Stage = .checking
     private var release = FirmwareCatalog.placeholder
-    private let modelIDs = ["ES07D03", "ES07DC9", "ES07E30", "ES07D02"]
-    private var selectedModel: String { modelIDs[ui.modelPopup.indexOfSelectedItem] }
+    private var selectedModel: String {
+        let index = ui.modelPopup.indexOfSelectedItem
+        return MonitorModel.supported.indices.contains(index) ? MonitorModel.supported[index].id : ""
+    }
     private var checkedFiles: [String: URL] = [:]
     private var importedEntries: [FirmwareRelease] { FirmwareCatalog.entries.filter { checkedFiles[$0.id] != nil } }
     private var firmwareErrors: [String: String] = [:]
@@ -258,12 +260,39 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         return alert.runModal() == .alertFirstButtonReturn
     }
 
+    private func confirmPhysicalModel() -> Bool {
+        confirmationOpen = true
+        render()
+        defer { confirmationOpen = false; render() }
+        let alert = NSAlert()
+        alert.messageText = "Confirm the monitor’s physical label"
+        alert.informativeText = "Read the model printed on the monitor itself and type it exactly below. Do not copy the selection from the app. This extra check prevents a shared firmware image from being mistaken for a different physical model."
+        let field = NSTextField(string: "")
+        field.placeholderString = selectedModel
+        field.frame = NSRect(x: 0, y: 0, width: 260, height: 24)
+        alert.accessoryView = field
+        alert.addButton(withTitle: "Confirm Model")
+        alert.addButton(withTitle: "Cancel")
+        guard alert.runModal() == .alertFirstButtonReturn else { return false }
+        let entered = field.stringValue.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+        guard entered == selectedModel else {
+            let mismatch = NSAlert()
+            mismatch.alertStyle = .critical
+            mismatch.messageText = "Model label does not match"
+            mismatch.informativeText = "You selected \(selectedModel), but entered \(entered.isEmpty ? "nothing" : entered). Choose the model printed on the physical monitor before installing scaler firmware."
+            mismatch.runModal()
+            return false
+        }
+        return true
+    }
+
     private func installSelected() {
         guard let monitor = selectedMonitor else { return }
         let entry = release
         do {
             let image = try checkedFirmware(entry)
             let routeAdvice = entry.component == .scaler ? "" : "\n\nFor this USB update, prefer a direct USB-B connection with video on HDMI or DisplayPort. Disconnect USB storage and accessories from the monitor, and keep your Mac powered independently."
+            if entry.component == .scaler && !confirmPhysicalModel() { return }
             guard confirm(title: "Install \(entry.displayVersion)?", message: "The updater will check your \(selectedModel), save a verified backup on this Mac, then install and verify the selected firmware.\n\nSelected update: \(entry.title)\n\n\(entry.summary)\n\nKeep monitor power and USB connected until installation finishes.\(routeAdvice)", button: "Back Up and Install") else { return }
             let pending = try ManagedBackups.prepare(for: monitor, firmware: entry)
             stage = .working
@@ -273,7 +302,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             activity = "Checking the monitor and preparing its backup…"
             completedTitle = "\(entry.version) installed"
             completedMessage = "The selected vendor firmware passed write and readback verification."
-            let args = [entry.component == .scaler ? "flash" : "flash-usb", image.path, "--device", monitor.registryID, "--auto-model", selectedModel, "--sha256", entry.sha256, "--backup", pending.url.path]
+            var args = [entry.component == .scaler ? "flash" : "flash-usb", image.path, "--device", monitor.registryID, "--auto-model", selectedModel, "--sha256", entry.sha256, "--backup", pending.url.path]
+            if entry.component == .scaler { args += ["--label-confirm", selectedModel] }
             run(args, maintenance: true) { result, output in
                 self.finishWrite(result: result, output: output, pending: pending, monitor: monitor, target: entry)
             }
@@ -317,6 +347,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         let saved = backups[ui.backupPopup.indexOfSelectedItem]
         do {
             let image = try ManagedBackups.validateForRestore(saved, monitor: monitor)
+            guard confirmPhysicalModel() else { return }
             guard confirm(title: "Restore the saved firmware?", message: "Saved firmware: \(saved.firmwareTitle)\nBackup date: \(saved.displayTitle)\n\nThis backup matches the selected USB serial number. The app checks its integrity and the currently installed firmware for \(selectedModel), then saves another complete backup before restoring. If the current firmware cannot be recognized, restoration stops before erase. Keep power and USB connected.", button: "Back Up and Restore") else { return }
             let pending = try ManagedBackups.prepare(for: monitor, firmware: nil)
             stage = .working
@@ -327,7 +358,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             completedTitle = "Saved firmware restored"
             completedMessage = "The saved complete firmware region passed write and readback checks. Try the monitor after its power cycle."
             let expected = FirmwareCatalog.entries.first { $0.sha256 == saved.sourceFirmwareSHA256 }
-            run(["restore", image.path, "--device", monitor.registryID, "--auto-model", selectedModel, "--sha256", saved.sha256, "--backup", pending.url.path], maintenance: true) { result, output in
+            run(["restore", image.path, "--device", monitor.registryID, "--auto-model", selectedModel, "--label-confirm", selectedModel, "--sha256", saved.sha256, "--backup", pending.url.path], maintenance: true) { result, output in
                 self.finishWrite(result: result, output: output, pending: pending, monitor: monitor, target: expected, restoring: true)
             }
         } catch { showProblem(error.localizedDescription) }
