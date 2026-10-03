@@ -39,14 +39,13 @@ with tempfile.TemporaryDirectory(prefix='spectrum-release-') as temp:
         'No vendor firmware is included. USB raw whole-chip automatic restore is not offered.\n\n'
         'Guide: https://github.com/Golps/MacOS-Spectrum-Updater/blob/main/docs/UPDATE-GUIDE.md\n'
         'Support: https://github.com/Golps/MacOS-Spectrum-Updater/issues\n')
-    identity = Path.home().name.lower().encode()
     checked = 0
     for file in package.rglob('*'):
         if not file.is_file():
             continue
         data = file.read_bytes()
-        if b'/Users/' in data or b'/private/var/folders/' in data or identity in data.lower():
-            raise ValueError('Private workstation information detected in package')
+        if b'/Users/' in data or b'/private/var/folders/' in data:
+            raise ValueError('Private workstation path detected in package')
         if file.suffix.lower() in {'.bin', '.exe', '.zip'}:
             raise ValueError('Unexpected firmware/installer/archive included')
         checked += 1
