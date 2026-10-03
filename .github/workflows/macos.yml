@@ -10,18 +10,20 @@ jobs:
   build:
     runs-on: macos-14
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
       - name: Build universal app
         run: sh build.sh
       - name: Test UI and logs without hardware
         run: sh test-ui.sh
       - name: Package app
         run: python3 tools/package_github_release.py --version 1.0
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: Spectrum-Updater-macOS
           path: build/release/*
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: Offscreen-UI-validation
           path: |
