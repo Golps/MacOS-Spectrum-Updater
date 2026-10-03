@@ -22,9 +22,11 @@ static void usage(void){puts("Spectrum Updater 1.0 — macOS IPS firmware tool\n
 "  spectrum-updater verify IMAGE.bin --device REGISTRY_ID --confirm ES07D03\n"
 "  spectrum-updater flash IMAGE.bin --device REGISTRY_ID --confirm ES07D03\n"
 "                   --sha256 EXPECTED_HASH --backup NEW_BACKUP.bin\n"
+"                   [--label-confirm ES07D03]\n"
 "  spectrum-updater restore RAW_BACKUP.bin --device REGISTRY_ID --confirm ES07D03\n"
 "                   --sha256 RAW_BACKUP_HASH --backup NEW_BACKUP.bin\n"
 "App operations use --auto-model ES07D03 instead of a manual confirmation.\n"
+"Shared installed scaler images may also require --label-confirm MODEL before writing.\n"
 "Automatic model verification requires a known compatible installed scaler image.\n"
 "inspect is offline; devices reads the OS registry. backup/verify enter ISP and\n"
 "can interrupt the display. flash writes scaler FW2; flash-usb writes the paired hub/PD SPI.\n"
@@ -50,10 +52,11 @@ int main(int argc,char **argv){
     if(!backup){if(sp_load(file,&image,&n,SP_LIMIT-SP_BASE,err,sizeof err)||((restore||inspect_backup)?sp_validate_backup(image,n,&info,err,sizeof err):sp_validate_image(image,n,&info,err,sizeof err))){fprintf(stderr,"%s\n",err);free(image);return 1;}
         printf("Image: %s\nBytes: %zu\nSHA256: %s\nStock release: %s\nValidated: outer/application CRC32, staged main-build CRC16 and %u component CRC16 values\nFlash interval: 0x%06X–0x%06X; erase span %zu bytes\n",file,n,info.sha256,info.stock?info.stock:"experimental/unrecognized",info.components,SP_BASE,SP_BASE+(unsigned)n,(n+SP_BLOCK-1)/SP_BLOCK*SP_BLOCK);fflush(stdout);}
     if(inspect||inspect_backup){free(image);return 0;}
-    const char *device=option(argc,argv,"--device"),*manual_model=option(argc,argv,"--confirm"),*auto_model=option(argc,argv,"--auto-model"),*expected=option(argc,argv,"--sha256"),*out=option(argc,argv,"--backup");
+    const char *device=option(argc,argv,"--device"),*manual_model=option(argc,argv,"--confirm"),*auto_model=option(argc,argv,"--auto-model"),*label_confirm=option(argc,argv,"--label-confirm"),*expected=option(argc,argv,"--sha256"),*out=option(argc,argv,"--backup");
     const char *model=auto_model?auto_model:manual_model;
     if(!device||!model||!sp_supported_model(model)||(auto_model&&manual_model)){fprintf(stderr,"An explicit registry ID and one supported IPS model-verification mode are required.\n");free(image);return 2;}
-    if(!backup){sp_image target_info=info;
+    sp_image target_info=info;
+    if(!backup){
         if(restore&&current_image(image,&target_info,err,sizeof err)){fprintf(stderr,"Saved backup has no valid embedded firmware.\n");free(image);return 2;}
         if(!sp_known_model(target_info.sha256,model)){fprintf(stderr,"This target image is not in the selected IPS model catalog. Nothing sent.\n");free(image);return 2;}}
     errno=0;char *tail;unsigned long long id=strtoull(device,&tail,10);if(errno||!*device||*tail||!id){fprintf(stderr,"Invalid registry ID.\n");free(image);return 2;}
@@ -82,6 +85,11 @@ int main(int argc,char **argv){
         sp_image installed={0};bool current_valid=current_image(saved,&installed,err,sizeof err)==0;
         if(!current_valid&&!restore){fprintf(stderr,"Current FW2 validation failed: %s\n",err);goto free_backup;}
         if(auto_model&&(!current_valid||!sp_known_model(installed.sha256,model))){fprintf(stderr,"Automatic model identification could not recognize the installed firmware as a known compatible IPS release. Nothing erased. Keep the current firmware and retain this log.\n");goto free_backup;}
+        if(auto_model&&sp_label_confirmation_required(installed.sha256,target_info.sha256)&&(!label_confirm||strcmp(label_confirm,model))){
+            fprintf(stderr,"The installed scaler image is shared across multiple physical model profiles. Confirm the model printed on the monitor label with --label-confirm %s before this model-specific write. Nothing erased.\n",model);
+            goto free_backup;
+        }
+        if(label_confirm&&strcmp(label_confirm,model)){fprintf(stderr,"Physical model label confirmation does not match the selected model. Nothing erased.\n");goto free_backup;}
         if(auto_model)printf("Model profile verified: %s (exact compatible installed firmware match).\n",model);
         if(current_valid)printf("Current FW2: %s, SHA256 %s\n",installed.stock?installed.stock:"unrecognized but validated container",installed.sha256);
         else printf("Current FW2 is invalid. A complete rescue backup will be saved before restoration.\n");
