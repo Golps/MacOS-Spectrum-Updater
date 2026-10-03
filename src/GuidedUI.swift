@@ -1,5 +1,17 @@
 import AppKit
 
+struct MonitorModel: Equatable {
+    let id: String
+    let displayName: String
+
+    static let supported = [
+        MonitorModel(id: "ES07D03", displayName: "ES07D03 · 4K 144 Hz · Matte"),
+        MonitorModel(id: "ES07DC9", displayName: "ES07DC9 · 4K 144 Hz · Glossy"),
+        MonitorModel(id: "ES07E30", displayName: "ES07E30 · 4K 144 Hz · Gorilla Glass"),
+        MonitorModel(id: "ES07D02", displayName: "ES07D02 · QHD 280 Hz · Matte")
+    ]
+}
+
 // Pure presentation: this view has no bundle, process, filesystem or USB access.
 // It can be constructed and rendered offscreen for appearance/layout checks.
 struct GuidedPresentation: Equatable {
@@ -95,7 +107,7 @@ final class GuidedUpdaterView: NSView {
         firmwareContent.spacing = 8
         addTo(firmwareContent, Self.label("Monitor & firmware", size: 12, bold: true))
         firmwarePopup.bezelStyle = .rounded
-        modelPopup.addItems(withTitles: ["ES07D03 · 4K 144 Hz · Matte", "ES07DC9 · 4K 144 Hz · Glossy", "ES07E30 · 4K 144 Hz · Gorilla Glass", "ES07D02 · QHD 280 Hz · Matte"])
+        modelPopup.addItems(withTitles: MonitorModel.supported.map(\.displayName))
         addTo(firmwareContent, modelPopup)
         addTo(firmwareContent, importButton)
         firmwarePopup.isHidden = true
