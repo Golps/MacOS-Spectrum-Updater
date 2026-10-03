@@ -10,8 +10,12 @@ int main(void){
  assert(sp_known_model(glossy,"ES07DC9"));assert(!sp_known_model(glossy,"ES07D03"));assert(!sp_known_model(glossy,"ES07E30"));
  assert(!sp_known_model(v108,"ES07DC9"));assert(sp_known_model(v108,"ES07E30"));
  assert(!sp_known_model(beta,"ES07D02"));assert(!sp_known_model(beta,"ES07E91"));
+ assert(sp_label_confirmation_required(beta,glossy));
+ assert(!sp_label_confirmation_required(beta,beta));
+ assert(!sp_label_confirmation_required(v108,v108));
+ assert(!sp_label_confirmation_required(NULL,glossy));
  assert(!sp_known_model(pd,"ES07D03"));assert(sp_supported_model("ES07D02"));assert(!sp_supported_model(NULL));assert(!sp_known_model(NULL,"ES07D03"));
  assert(sp_known_model("5f0a7bf92119fcc5965f09985d41645a062e86fabd993de86635a515b6e92162","ES07D02"));
  assert(!sp_known_model("5f0a7bf92119fcc5965f09985d41645a062e86fabd993de86635a515b6e92162","ES07D03"));
- puts("16 model authorization checks passed; incompatible models, OLED and PD images rejected.");
+ puts("20 model authorization checks passed; shared-image label guards and incompatible targets rejected.");
 }
